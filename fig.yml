@@ -1,0 +1,6 @@
+brabra:
+  build: .
+  ports:
+    - "60011:8080"
+  volumes:
+    - ~/brabra-files:/data
