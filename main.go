@@ -28,13 +28,15 @@ func GetImage(basedir string, uri string, level float64) (image.Image, error) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	uri := r.URL.Query().Get("t")
 	level, err := strconv.ParseFloat(r.URL.Query().Get("l"), 64)
-	if err != nil {
+	if err != nil || level > 25 {
 		fmt.Fprintf(w, "invalid l")
+		return
 	}
 
 	img, err := GetImage(os.Args[1], uri, level)
 	if err != nil {
 		fmt.Fprintf(w, "Error %s", err)
+		return
 	}
 	png.Encode(w, img)
 }
